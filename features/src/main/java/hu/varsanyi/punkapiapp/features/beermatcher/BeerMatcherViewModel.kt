@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.varsanyi.punkapiapp.domain.models.Beer
 import hu.varsanyi.punkapiapp.domain.usecases.GetRandomBeerUseCase
+import hu.varsanyi.punkapiapp.domain.usecases.SaveLikedBeerUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -12,7 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class BeerMatcherViewModel(
-    private val getRandomBeerUseCase: GetRandomBeerUseCase
+    private val getRandomBeerUseCase: GetRandomBeerUseCase,
+    private val saveLikedBeerUseCase: SaveLikedBeerUseCase
 ) : ViewModel() {
 
     data class UiState(
@@ -28,6 +30,7 @@ class BeerMatcherViewModel(
 
     sealed class News {
         data object BeerJudgeLimitReached : News()
+        data object BeerSaved: News()
     }
 
     private val _uiState = MutableStateFlow(UiState())
@@ -51,12 +54,14 @@ class BeerMatcherViewModel(
         viewModelScope.launch {
             when (event) {
                 is Event.JudgeBeer -> {
+                    if (event.didLike) saveLikedBeer(_uiState.value.currentBeer)
                     _uiState.update {
                         it.copy(
                             judgedBeerCount = it.judgedBeerCount + 1,
                             currentBeer = it.nextBeer
                         )
                     }
+
 
                     if (_uiState.value.judgedBeerCount == 10) {
                         _uiNews.emit(News.BeerJudgeLimitReached)
@@ -78,6 +83,18 @@ class BeerMatcherViewModel(
                     _uiState.update {
                         it.copy(nextBeer = beer)
                     }
+                },
+                onFailure = {
+
+                }
+            )
+    }
+
+    private suspend fun saveLikedBeer(beer: Beer?) {
+        saveLikedBeerUseCase.invoke(beer)
+            .foldResult(
+                onSuccess = {
+                    _uiNews.emit(News.BeerSaved)
                 },
                 onFailure = {
 

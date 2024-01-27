@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,7 +17,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun BeerMatcherScreen(
     viewModel: BeerMatcherViewModel = koinViewModel(),
-    navigateToBeerList: () -> Unit
+    navigateToBeerList: () -> Unit,
+    showSnackbar: (message: String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -26,6 +26,7 @@ fun BeerMatcherScreen(
         viewModel.uiNews.collect { news ->
             when (news) {
                 BeerMatcherViewModel.News.BeerJudgeLimitReached -> navigateToBeerList()
+                BeerMatcherViewModel.News.BeerSaved -> showSnackbar("Beer saved")
             }
         }
     }

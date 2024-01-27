@@ -13,9 +13,10 @@ fun NavController.navigateToBeerMatcher() {
 }
 
 fun NavGraphBuilder.beerMatcherScreen(
-    navigateToBeerList: () -> Unit
+    navigateToBeerList: () -> Unit,
+    showSnackbar: (message: String) -> Unit
 ) {
     composable(BEER_MATCHER_NAV_ROUTE) {
-        BeerMatcherScreen(navigateToBeerList = navigateToBeerList)
+        BeerMatcherScreen(navigateToBeerList = navigateToBeerList, showSnackbar = showSnackbar)
     }
 }
