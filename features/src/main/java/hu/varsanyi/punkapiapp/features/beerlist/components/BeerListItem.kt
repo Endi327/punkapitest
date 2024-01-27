@@ -43,7 +43,7 @@ fun BeerListItem(
                     .padding(2.dp),
                 model = imageUrl,
                 contentDescription = "Beer image",
-                placeholder = painterResource(id = R.drawable.beer)
+                fallback = painterResource(id = R.drawable.beer)
             )
 
             Spacer(modifier = Modifier.width(12.dp))
