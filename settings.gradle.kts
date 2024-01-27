@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "PunkAPIApp"
 include(":app")
- 
+include(":domain")
+include(":data")
+include(":features")
