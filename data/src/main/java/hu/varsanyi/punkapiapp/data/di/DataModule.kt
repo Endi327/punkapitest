@@ -5,9 +5,11 @@ import hu.varsanyi.punkapiapp.data.network.repository.PunkApiService
 import hu.varsanyi.punkapiapp.data.network.repository.PunkApiServiceImplementation
 import hu.varsanyi.punkapiapp.data.store.BeerRepository
 import hu.varsanyi.punkapiapp.data.store.BeerRepositoryImplementation
+import hu.varsanyi.punkapiapp.data.usecases.DefaultGetBeerDetailsByIdUseCase
 import hu.varsanyi.punkapiapp.data.usecases.DefaultGetLikedBeerListUseCase
 import hu.varsanyi.punkapiapp.data.usecases.DefaultGetRandomBeerUseCase
 import hu.varsanyi.punkapiapp.data.usecases.DefaultSaveLikedBeerUseCase
+import hu.varsanyi.punkapiapp.domain.usecases.GetBeerByIdUseCase
 import hu.varsanyi.punkapiapp.domain.usecases.GetLikedBeerListUseCase
 import hu.varsanyi.punkapiapp.domain.usecases.GetRandomBeerUseCase
 import hu.varsanyi.punkapiapp.domain.usecases.SaveLikedBeerUseCase
@@ -29,4 +31,6 @@ val dataModule = module {
     factory<GetLikedBeerListUseCase> { DefaultGetLikedBeerListUseCase(get(), get()) }
 
     factory<SaveLikedBeerUseCase> { DefaultSaveLikedBeerUseCase(get(), get()) }
+
+    factory<GetBeerByIdUseCase> { DefaultGetBeerDetailsByIdUseCase(get(), get()) }
 }

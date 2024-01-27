@@ -3,6 +3,8 @@ package hu.varsanyi.punkapiapp.ui
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import hu.varsanyi.punkapiapp.features.beerdetails.beerDetailsScreen
+import hu.varsanyi.punkapiapp.features.beerdetails.navigateToBeerDetails
 import hu.varsanyi.punkapiapp.features.beerlist.beerListScreen
 import hu.varsanyi.punkapiapp.features.beerlist.navigateToBeerList
 import hu.varsanyi.punkapiapp.features.beermatcher.BEER_MATCHER_NAV_ROUTE
@@ -17,6 +19,10 @@ fun PunkApiAppNavigation(
             navController.navigateToBeerList()
         }, showSnackbar = {})
 
-        beerListScreen(navigateToDetails = {})
+        beerListScreen(navigateToDetails = {
+            navController.navigateToBeerDetails(it)
+        })
+
+        beerDetailsScreen()
     }
 }

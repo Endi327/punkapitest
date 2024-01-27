@@ -5,7 +5,12 @@ import hu.varsanyi.punkapiapp.domain.models.Beer
 class BeerRepositoryImplementation : BeerRepository {
     private val likedBeers: MutableList<Beer> = mutableListOf()
     override fun saveLikedBeer(beer: Beer) {
-        likedBeers.add(beer)
+        val alreadyLiked = likedBeers.any {
+            it.id == beer.id
+        }
+
+        if (!alreadyLiked)
+            likedBeers.add(beer)
     }
 
     override fun getLikedBeers(): List<Beer> {
