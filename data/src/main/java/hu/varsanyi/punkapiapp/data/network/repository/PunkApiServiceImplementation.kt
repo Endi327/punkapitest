@@ -9,16 +9,11 @@ import io.ktor.http.encodedPath
 class PunkApiServiceImplementation(
     private val client: HttpClient
 ): PunkApiService {
-    override suspend fun getRandomBeer(): BeerDto {
+    override suspend fun getRandomBeer(): List<BeerDto> {
         return client.get {
             url {
                 encodedPath = "/beers/random"
             }
         }.body()
-    }
-
-
-    private companion object {
-        const val BASE_URL = "https://api.punkapi.com/v2"
     }
 }

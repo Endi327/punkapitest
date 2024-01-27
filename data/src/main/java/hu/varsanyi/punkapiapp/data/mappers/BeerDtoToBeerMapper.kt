@@ -6,7 +6,7 @@ import hu.varsanyi.punkapiapp.domain.models.Beer
 fun BeerDto.toBeer(): Beer = Beer(
     id = id,
     name = name,
-    image = imageUrl,
+    imageUrl = imageUrl,
     tagline = tagline,
     description = description
 )

@@ -1,5 +1,6 @@
 package hu.varsanyi.punkapiapp.domain.usecases.core
 
+import android.util.Log
 import hu.varsanyi.punkapiapp.domain.errors.AppError
 import hu.varsanyi.punkapiapp.domain.errors.toAppError
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,6 +18,7 @@ abstract class UseCase<in Params, R>(private val coroutineDispatcher: CoroutineD
                 UseCaseResult.Success(it)
             },
             onFailure = {
+                Log.d("USECASE FAILURE", it.toString())
                 UseCaseResult.Failure(it.toAppError())
             }
         )

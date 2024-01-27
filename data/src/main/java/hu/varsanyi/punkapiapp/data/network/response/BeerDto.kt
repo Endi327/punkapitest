@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BeerDto(
-    val id: String,
+    val id: Int,
     val name: String,
     val tagline: String,
-    @SerialName("image_url") val imageUrl: String,
+    @SerialName("image_url") val imageUrl: String?,
     val description: String
 )

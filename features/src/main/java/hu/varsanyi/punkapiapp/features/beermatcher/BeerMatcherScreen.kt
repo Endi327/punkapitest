@@ -34,7 +34,7 @@ fun BeerMatcherScreenContent(
     Box {
         uiState.currentBeer?.let {
             BeerMatcherCard(
-                imageUrl = it.image,
+                imageUrl = it.imageUrl,
                 name = it.name,
                 tagline = it.tagline,
                 dismissClicked = { /*TODO*/ }) {

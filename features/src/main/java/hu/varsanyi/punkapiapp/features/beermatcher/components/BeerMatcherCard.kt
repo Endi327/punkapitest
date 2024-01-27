@@ -16,7 +16,7 @@ import coil.compose.AsyncImage
 @Composable
 fun BeerMatcherCard(
     modifier: Modifier = Modifier,
-    imageUrl: String,
+    imageUrl: String?,
     name: String,
     tagline: String,
     dismissClicked: () -> Unit,

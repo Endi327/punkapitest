@@ -12,7 +12,7 @@ class DefaultGetRandomBeerUseCase(
     coroutineDispatcher: CoroutineDispatcher
 ) : UseCase<Unit, Beer>(coroutineDispatcher), GetRandomBeerUseCase {
     override suspend fun execute(parameters: Unit): Beer {
-        val beerDto = punkApiService.getRandomBeer()
+        val beerDto = punkApiService.getRandomBeer().first()
 
         return beerDto.toBeer()
     }
