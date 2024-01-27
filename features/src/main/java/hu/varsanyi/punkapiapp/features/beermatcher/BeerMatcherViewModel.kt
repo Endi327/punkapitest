@@ -23,7 +23,7 @@ class BeerMatcherViewModel(
     )
 
     sealed class Event {
-        data object JudgeBeer : Event()
+        data class JudgeBeer(val didLike: Boolean) : Event()
     }
 
     sealed class News {
@@ -50,7 +50,7 @@ class BeerMatcherViewModel(
     fun onEvent(event: Event) {
         viewModelScope.launch {
             when (event) {
-                Event.JudgeBeer -> {
+                is Event.JudgeBeer -> {
                     _uiState.update {
                         it.copy(
                             judgedBeerCount = it.judgedBeerCount + 1,
